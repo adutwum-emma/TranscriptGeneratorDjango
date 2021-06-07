@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>{% block title %}  {% endblock %}</title>
+    {% load static %}
+    <!-- Bootstrap -->
+    <link href="{% static 'home/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'home/base_style.css' %}" rel="stylesheet">
+    
+  </head>
+  <body style="overflow-x: hidden;">
+
+    <nav class="nav navbar-default" style="box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.1);">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="" class="navbar-brand"><span class="glyphicon glyphicon-education"></span> P. School Transcript </a>
+                <button class="navbar-toggle" data-toggle="collapse" data-target="#navCollapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navCollapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{% url 'dash_board:main_panel' %}"> <span class="glyphicon glyphicon-home"></span> Home</a></li>
+                    <li><a href=""><span class="glyphicon glyphicon-envelope"></span> Contact Admin</a></li>
+                    <li><a href="" data-target="#add_std" data-toggle="modal" style="color: blue;"> <span class="glyphicon glyphicon-plus"></span> Add-Student</a></li>
+                </ul>
+    
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="">{{today.date}}</a></li>
+                    <li> <a href="{% url 'account_settings:account' %}" title="Click here to change password">@{{user.username.upper}}</a> </li>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'home:logout' %}" onclick="return confirm('Are you sure you want to logout?')"> <span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                    {% else %}
+                    {% endif %}
+                </ul>
+    
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="search" placeholder="Search student here.." name="search" class="form-control">
+                    </div>
+                    <button class="btn btn-primary" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+</div>
+
+{% block content %}
+
+{% endblock %}
+
+
+<div class="container">
+    <div class="modal fade" id="add_std">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+
+                    <h3>Add Student</h3>
+
+                    <hr>
+
+                    
+                    <form action="{% url 'dash_board:add_student' %}" method="post" enctype="multipart/form-data" class="form" onsubmit="return confirm('Do you want to add student?')">
+
+                        {% csrf_token %}
+
+                        <input type="hidden" name="class_id" value="{{user.class.id}}">
+
+                        <div class="form-group">
+                            <input type="text" name="first_name" placeholder="First Name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="middle_name" placeholder="Middle Name" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="last_name" placeholder="Last Name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select class="form-control" name="gender" id="gender" required>
+                                <option>...................</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="date" name="date" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="parent_phone" placeholder="Parent Phone Number" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="parent_email" placeholder="Parent Email" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="p_photo">Profile Photo</label>
+                            <input type="file" name="profile_photo" id="p_photo" class="form-control" accept=".jpg, png" required>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">Submit</button>
+                    </form>
+                    
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'home/jquery.min.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'home/bootstrap/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

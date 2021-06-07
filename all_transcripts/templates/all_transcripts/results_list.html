@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Students Results | {{user.class.name_of_class}} </title>
+    {% load static %}
+    <!-- Bootstrap -->
+    <link href="{% static 'home/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'home/base_style.css' %}" rel="stylesheet">
+    
+  </head>
+  <body style="overflow-x: hidden;">
+
+
+    <div class="container">
+
+        <h2> <b>CLASS:</b> {{user.class.name_of_class}}</h2>
+        <h2> <b>TEACHER:</b> {{user.first_name}} {{user.last_name}} </h2>
+
+        <hr>
+
+        <div class="well table-responsive">
+
+            <table border="1" class="table table-striped" style="padding: 3px; font-size: 13px;">
+                <thead>
+                    <tr>
+                        <th width="200px">Name</th>
+                        {% for data in user.subject_set.all %}
+
+                        <th>{{data.subject_code}}</th>
+                        
+                        {% endfor %}
+                        <th>Total</th>
+                    </tr>
+                </thead>
+
+                <tbody style="text-align: center;">
+
+                    {% for data in user.class.student_set.all %}
+                    <tr>
+                        <td>{{data.first_name}} {{data.last_name}} {{data.middle_name}}</td>
+
+
+                        {% for std in data.grade_set.all %}
+                        
+                            <td>{{std.total_score}}</td>
+                            
+                        {% endfor %}
+                        <td>Total</td>
+                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+    <p> {% url 'all_transcripts:score_list' user.id %} </p>
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'home/jquery.min.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'home/bootstrap/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

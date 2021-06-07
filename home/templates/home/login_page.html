@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title> Elementary School Trnascript Builder | Login</title>
+
+    {% load static %}
+
+    <!-- Bootstrap -->
+    <link href="{% static 'home/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'home/base_style.css' %}" rel="stylesheet">
+    
+  </head>
+
+  {% for message in messages %}
+  <script> alert("{{message}}") </script>
+  {% endfor %}
+
+  <body style="overflow-x: hidden; background-color: rgb(235, 235, 235);">
+
+
+    <div class="container" style="width: 300px; padding: 20px; margin-top: 100px;
+     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1); border-radius: 5px; background-color: white;">
+        <div class="header">
+            <h4 style="text-align: center; font-family: poppins;">Primary School Transcript Builder</h4>
+            <div class="container" style="position: relative; right: -60px;">
+                <img id="photo" class="img-responsive" src="{{my_logo.logo.url}}" width="100px">
+            </div>
+        </div>
+        <hr>
+        <form class="form" action="" method="post">
+          {% csrf_token %}
+            <div class="form-group has-feedback">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" placeholder="Username" class="form-control">
+                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+
+            <div class="form-group has-feedback">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Password" class="form-control">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Log in</button>
+        </form>
+
+        <p style="text-align: center; margin-top: 10px;">Forgot <a href="">password?</a></p>
+    </div>
+
+
+  
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

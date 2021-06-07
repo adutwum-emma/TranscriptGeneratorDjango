@@ -1,0 +1,74 @@
+{% extends 'home/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title> Elementary School Trnascript Builder | Account Modification</title>
+
+    {% load static %}
+
+    <!-- Bootstrap -->
+    <link href="{% static 'home/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'home/base_style.css' %}" rel="stylesheet">
+    
+  </head>
+
+  <body style="overflow-x: hidden; background-color: rgb(235, 235, 235);">
+
+    {% block content %}
+
+    
+  {% for message in messages %}
+    <script> alert("{{message}}") </script>
+  {% endfor %}
+
+    <div class="container" style="background-color: white; margin-top: 25px; padding: 20px; width: 300px; border-radius: 10px; box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);">
+           <h3 style="color: gray;"> Account Modification </h3>
+           <hr>
+        <form action="{% url 'account_settings:saving_account' %}" method="post" class="form">
+
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="user_name">User Name</label>
+                <input type="text" name="username" value="{{user.username}}" id="user_name" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" name="first_name" value="{{user.first_name}}" id="first_name" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="first_name">Last Name</label>
+                <input type="text" name="last_name" value="{{user.last_name}}" id="last_name" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" value="{{user.email}}" id="email" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label> <span><a href="{% url 'account_settings:change_password' %}">Change</a></span>
+                <input type="password" name="password" value="{{user.password}}" id="password" class="form-control" readonly>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success" style="width: 250px; font-size: 16px; font-family: poppins;">Save</button>
+            </div>
+        </form>
+    </div>
+    {% endblock %}
+
+
+  
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>

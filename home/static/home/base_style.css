@@ -1,0 +1,22 @@
+#photo{
+    height: 100px;
+    width: 100px;
+    object-fit: contain;
+}
+
+
+.container #box{
+    transition: 0.7;
+}
+
+.container #box :hover{
+    cursor: pointer;
+}
+
+.container a{
+    transition: 0.7s;
+}
+
+.container .row a:hover{
+    opacity: 0.6;
+}

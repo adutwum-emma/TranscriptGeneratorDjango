@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Students Results | {{user.class.name_of_class}} </title>
+    {% load static %}
+    <!-- Bootstrap -->
+    <link href="{% static 'home/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'home/base_style.css' %}" rel="stylesheet">
+    
+  </head>
+  <body style="overflow-x: hidden;">
+
+    <h1 style="text-align: center; font-size: 19px;">TOSKY PEPRATORY SCHOOL</h1>
+    <h2 style="text-align: center; font-size: 17px;">Kwadaso - Kumasi</h2>
+    <h2 style="text-align: center; font-size: 15px;">Terminal Report</h2>
+    
+
+    <p style="font-size: 15px">
+        Tosky School, <br>
+        Post Office Box 2776, <br>
+        Suame - Kumasi <br>
+        0245878956
+    </p>
+
+    <hr>
+
+    <p style="font-size: 14px;">
+      NAME: {{student.first_name}} {{student.middle_name}} {{student.last_name}} <br>
+      CLASS: {{student.stage.name_of_class}} - {{student.stage.class_code}}
+    </p>
+
+
+    <div class="container">
+
+
+        
+        <div class="well table-responsive">
+
+            <table border="0.1" class="table table-striped" style="padding: 3px; font-size: 13px; text-align: left;">
+
+                <thead> <h2>  </h2> </thead>
+
+                <thead>
+                    <tr>
+                      <th>SUBJECT</th>
+                      <th>CLASS ASSESSMENT</th>
+                      <th>EXAM SCORE</th>
+                      <th>TOTAL SCORE %</th>
+                      <th>GRADE</th>
+                      <th>REMARKS</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                  {% for data in student.grade_set.all %}
+                    <tr>
+                        <td style="width: 200px;">{{data.Subject.subject_name}}</td>
+                        <td>{{data.assessment_score}}</td>
+                        <td>{{data.exam_score}}</td>
+                        <td>{{data.total_score}}</td>
+                        <td>{{data.the_grade}}</td>
+                        <td>{{data.remarks}}</td>
+                        
+                    </tr>
+                  {% endfor %}
+
+                    <tr>
+                      <td>Total</td>
+                      <td>{{assess}}</td>
+                      <td>{{exam|floatformat:2}}</td>
+                      <td>{{total|floatformat:2}}</td>
+                      <td>Agg: {{agg}}</td>
+                      <td>Avg: {{average|floatformat:2}}</td>
+                    </tr>
+                </tbody>
+
+                   
+            </table>
+
+        </div> <br>
+
+        {% url 'all_transcripts:student_transcript' student.id %}
+
+    </div>
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'home/jquery.min.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'home/bootstrap/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

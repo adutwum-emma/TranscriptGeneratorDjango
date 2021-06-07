@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Students Results | {{user.class.name_of_class}} </title>
+    {% load static %}
+    <!-- Bootstrap -->
+    <link href="{% static 'home/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'home/base_style.css' %}" rel="stylesheet">
+    
+  </head>
+  <body style="overflow-x: hidden;">
+
+    <h1 style="text-align: center; font-size: 17px;">TOSKY PEPRATORY SCHOOL</h1>
+    <h2 style="text-align: center; font-size: 16px;">Kwadaso - Kumasi</h2>
+
+    {% for data in user.class.student_set.all %}
+    <p style="font-size: 15px">
+        Tosky School, <br>
+        Post Office Box 2776, <br>
+        Suame - Kumasi <br>
+        0245878956
+    </p>
+
+    <hr>
+
+    <div class="container">
+
+        <div class="well table-responsive">
+
+            <table border="0.1" class="table table-striped" style="padding: 3px; font-size: 13px; text-align: left;">
+
+                <thead> <h2> Name: {{data.first_name}} {{data.last_name}} {{data.middle_name}} </h2> </thead>
+
+                <tr>
+                    <th style="width: 200px;">Subjects</th>
+                    <th>Class Assessment</th>
+                    <th>Exam Score</th>
+                    <th>Total Score %</th>
+                    <th>Grade</th>
+                    <th>Remarks</th>
+                </tr>
+
+                {% for g in data.grade_set.all %}
+                <tr>
+                    <td>{{g.Subject.subject_name}}</td>
+                    <td>{{g.assessment_score}}</td>
+                    <td>{{g.exam_score}}</td>
+                    <td>{{g.total_score}}</td>
+                    <td>{{g.the_grade}}</td>
+                    <td>{{g.remarks}}</td>
+                </tr>
+                {% endfor %}
+                
+                    
+            </table>
+
+        </div>
+
+    </div>
+
+    <br> <br> <br> <br> <br> <br> <br>
+
+    {% endfor %}
+
+    <p> {% url 'all_transcripts:in_bulk' user.id %} </p>
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'home/jquery.min.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'home/bootstrap/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>
